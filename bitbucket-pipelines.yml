@@ -1,0 +1,33 @@
+image: php:7.2-fpm
+
+options:
+  docker: true
+
+definitions:
+  services:
+    docker:
+      memory: 2048
+  steps:
+    - step: &PHP-CodeSniffer
+        name: PHP CodeSniffer
+        script:
+          - apt-get update && apt-get install -y unzip
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - composer update && composer install
+          - vendor/bin/phpcs --standard=PSR12 app/
+        caches:
+          - composer
+    - step: &PHP-MD
+        name: PHP Mess Detector
+        script:
+          - apt-get update && apt-get install -y unzip
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - composer update && composer install
+          - vendor/bin/phpmd app/ text phpmd.xml
+
+pipelines:
+  pull-requests:
+    '**':
+      - parallel:
+          - step: *PHP-CodeSniffer
+          - step: *PHP-MD

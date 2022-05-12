@@ -1,0 +1,8 @@
+# /vendor
+# /node-modules
+/resources/tema/tools/node_modules
+/resources/tema/src/components
+/resources/tema/src/crud
+/resources/tema/src/custom
+/resources/tema/src/layout
+/.git

@@ -1,0 +1,42 @@
+<?php
+
+return [
+    'label' => [
+        'actions' => 'Actions',
+        'dashboard' => 'Dashboard',
+        'hi' => 'Hi',
+        'logout' => 'Logout',
+        'no' => 'No',
+        'search' => 'Search',
+        'searching' => 'Searching',
+        'security' => 'Security',
+        'system' => 'System',
+        'yes' => 'Yes',
+    ],
+    'button' => [
+        'back' => 'Back',
+        'cancel' => 'Cancel',
+        'delete' => 'Delete',
+        'save' => 'Save',
+        'yes_remove' => 'Yes, remove!',
+        'yes_add' => 'Yes, add!',
+    ],
+    'messages' => [
+        'list_could_not_be_retrieved' => 'The list could not be retrieved.',
+        'item_could_not_be_retrieved' => 'The item could not be retrieved.',
+        'some_field_is_not_valid' => 'Some field is not valid.',
+        'registered_successfully' => 'Registered successfully.',
+        'it_was_not_possible_register' => 'It was not possible to register.',
+        'it_was_not_possible_update' => 'It was not possible to update.',
+        'it_was_not_possible_delete' => 'It was not possible to delete.',
+        'updated_successfully' => 'Updated successfully.',
+        'successfully_deleted' => 'Successfully deleted.',
+        'are_you_sure' => 'Are you sure?',
+        'you_cant_undo_that' => 'You can\'t undo that!',
+        'success' => 'Success',
+        'it_is_not_possible_to_delete_objects_with_associations' => 'It is not possible to delete objects with associations.',
+        'currently_selected' => 'Currently Selected',
+        'start_typing_search_query' => 'Start typing a search query',
+        'please_enter_more_characters' => 'Please enter more characters',
+    ],
+];
