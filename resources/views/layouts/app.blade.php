@@ -20,6 +20,7 @@
 
     <!--begin::Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 
     <!--end::Fonts -->
 
@@ -37,20 +38,20 @@
 
 <!-- begin:: Page -->
 
-    <!-- begin:: Header Mobile -->
-    <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
-        <div class="kt-header-mobile__logo">
-            <a href="{{route('home')}}">
-                <img alt="Logo" src="{{asset('assets/media/logos/logo-uppersoft-horizontal-light.png')}}" width="125px" />
-            </a>
-        </div>
-        <div class="kt-header-mobile__toolbar">
-            <button class="kt-header-mobile__toggler kt-header-mobile__toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
-            <button class="kt-header-mobile__toggler" id="kt_header_mobile_toggler"><span></span></button>
-            <button class="kt-header-mobile__topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
-        </div>
+<!-- begin:: Header Mobile -->
+<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+    <div class="kt-header-mobile__logo">
+        <a href="{{route('home')}}">
+            <img alt="Logo" src="{{asset('assets/media/logos/UpCities_Procon.png')}}" width="200px"/>
+        </a>
     </div>
-    <!-- end:: Header Mobile -->
+    <div class="kt-header-mobile__toolbar">
+        <button class="kt-header-mobile__toggler kt-header-mobile__toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+        <button class="kt-header-mobile__toggler" id="kt_header_mobile_toggler"><span></span></button>
+        <button class="kt-header-mobile__topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
+    </div>
+</div>
+<!-- end:: Header Mobile -->
 
 <div class="kt-grid kt-grid--hor kt-grid--root">
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
@@ -66,7 +67,7 @@
             <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                 <div class="kt-aside__brand-logo">
                     <a href="{{route('home')}}">
-                        <img alt="Logo" src="{{asset('assets/media/logos/logo-uppersoft-horizontal-light.png')}}" />
+                        <img alt="Logo" src="{{asset('assets/media/logos/UpCities_Procon.png')}}" width="200px"/>
                     </a>
                 </div>
                 <div class="kt-aside__brand-tools">
@@ -114,28 +115,6 @@
 
                 <!-- begin:: Header Topbar -->
                 <div class="kt-header__topbar">
-
-                    <!--begin: Search -->
-
-                    <!--begin: Search -->
-                    @include('layouts.search')
-                    <!--end: Search -->
-
-                    <!--end: Search -->
-
-                    <!--begin: Notifications -->
-                    @include('layouts.notifications')
-                    <!--end: Notifications -->
-
-                    <!--begin: Quick Actions -->
-                    @include('layouts.quick-actions')
-                    <!--end: Quick Actions -->
-
-                    <!--begin: My Cart -->
-                    @include('layouts.my-cart')
-                    <!--end: My Cart -->
-
-
                     <!--begin: Language bar -->
                     @include('layouts.language-bar')
                     <!--end: Language bar -->
