@@ -1,10 +1,9 @@
-# Projeto Padrão Backend Laravel
+# Projeto de Engenharia de Software
 
-Projeto desenvolvido em Laravel 7 com o tema Metronic v6. 
-Esse projeto pode ser usado como base para iniciar o desenvolvimento de outros projetos em Laravel.
+Projeto desenvolvido em Laravel 9.
 
 ### Requisitos
-* PHP >= 7.2.5
+* PHP >= 8.0
 
 ### Instalação
 
