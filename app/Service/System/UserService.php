@@ -16,7 +16,7 @@ use Illuminate\Support\MessageBag;
 
 class UserService extends Service
 {
-    private $avatarImageService;
+    private AvatarImageService $avatarImageService;
 
     public function __construct(User $user, UserDataManager $userDataManager, AvatarImageService $avatarImageService)
     {
@@ -78,8 +78,6 @@ class UserService extends Service
 
             $token = $this->broker()->createToken($user);
 
-            $user->sendWelcomeUserNotificaiton($token);
-
             event(new Registered($user));
         }
         return $message;
@@ -111,7 +109,6 @@ class UserService extends Service
     {
         /** @var User $user */
         $user = $this->guard()->user();
-        $data['email'] = $user->email;
 
         $data['email'] = $user->email;
         $message = parent::update($data, $user->id);

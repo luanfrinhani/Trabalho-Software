@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    private $service;
+    private UserService $service;
 
     public function __construct(UserService $service)
     {

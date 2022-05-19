@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active',
+        'name', 'email', 'password', 'active', 'group'
     ];
 
     /**
@@ -58,12 +58,6 @@ class User extends Authenticatable
     public function getFirstNameAttribute()
     {
         return explode(' ', $this->name)[0];
-    }
-
-
-    public function sendWelcomeUserNotificaiton($token)
-    {
-        $this->notify(new WelcomeUserNotification($token));
     }
 
     public function sendPasswordResetNotification($token)

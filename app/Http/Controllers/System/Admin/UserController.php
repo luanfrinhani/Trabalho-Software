@@ -13,7 +13,7 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    protected $service;
+    protected UserService $service;
 
     public function __construct(UserService $service)
     {
@@ -25,7 +25,7 @@ class UserController extends Controller
      *
      * @return Response|View
      */
-    public function index()
+    public function index(): Response|View
     {
         $message = $this->service->all();
 
@@ -43,7 +43,7 @@ class UserController extends Controller
      *
      * @return Factory|View
      */
-    public function create()
+    public function create(): Factory|View
     {
         return view('system.user.new');
     }
@@ -77,7 +77,7 @@ class UserController extends Controller
      * @return RedirectResponse|Redirector
      * @SuppressWarnings("unused")
      */
-    public function show($id)
+    public function show($id): Redirector|RedirectResponse
     {
         return redirect(route('system.user.index'));
     }
@@ -88,7 +88,7 @@ class UserController extends Controller
      * @param mixed $id
      * @return Factory|View
      */
-    public function edit($id)
+    public function edit($id): Factory|View
     {
         $message = $this->service->find($id);
 
@@ -128,7 +128,7 @@ class UserController extends Controller
      * @param mixed $id
      * @return RedirectResponse|Redirector
      */
-    public function destroy($id)
+    public function destroy($id): Redirector|RedirectResponse
     {
         $message = $this->service->delete($id);
 
