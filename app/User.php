@@ -14,10 +14,16 @@ use Illuminate\Notifications\Notifiable;
  * @property string email
  * @property mixed id
  * @property string password
+ * @property string name
+ * @property string group
+ * @property string label
  */
 class User extends Authenticatable
 {
     use Notifiable;
+
+    const ADMIN = 'admin';
+    const CLIENT = 'client';
 
     /**
      * The attributes that are mass assignable.
@@ -50,6 +56,10 @@ class User extends Authenticatable
         'avatar'
     ];
 
+    protected $appends = [
+        'label'
+    ];
+
     public function avatar()
     {
         return $this->belongsToMany(File::class, 'avatar_images');
@@ -58,6 +68,11 @@ class User extends Authenticatable
     public function getFirstNameAttribute()
     {
         return explode(' ', $this->name)[0];
+    }
+
+    public function getLabelAttribute()
+    {
+        return $this->label = trans('user.label.' . $this->group);
     }
 
     public function sendPasswordResetNotification($token)

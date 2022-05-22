@@ -11,6 +11,8 @@ return [
         'personal_information' => 'Informações Pessoais',
         'user' => 'Usuário',
         'users' => 'Usuários',
+        'admin' => 'Administrador',
+        'client' => 'Cliente',
     ],
     'attribute' => [
         'avatar' => 'Avatar',
