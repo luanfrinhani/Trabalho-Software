@@ -16,10 +16,10 @@ class CreateAvatarImagesTable extends Migration
         Schema::create('avatar_images', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('file_id');
-            $table->foreign('file_id')->references('id')->on('files');
+//            $table->unsignedBigInteger('user_id');
+//            $table->foreign('user_id')->references('id')->on('users');
+//            $table->unsignedBigInteger('file_id');
+//            $table->foreign('file_id')->references('id')->on('files');
 
             $table->timestamps();
         });
