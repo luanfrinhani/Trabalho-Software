@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('materials', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->text('description');
+            $table->integer('amount');
             $table->double('price');
-            $table->date('delivery_date');
-            $table->date('approved_date');
-            $table->integer('status');
-            $table->foreignUuid('client_id')->constrained('clients');
-            $table->bigInteger('amount');
             $table->timestamps();
         });
     }
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('materials');
     }
 };
