@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\System\Admin\ClientController;
 use App\Http\Controllers\System\Admin\ProductController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,12 @@ Route::group(
                     ->name('system.profile.password.edit');
                 Route::match(['put', 'patch'], '/profile/password', 'System\Admin\ProfileController@updatePassword')
                     ->name('system.profile.password.update');
+
+                // Rotas do produto
                 Route::resource('product', ProductController::class);
+
+                // Rotas do cliente
+                Route::resource('client', ClientController::class);
             });
         });
     }

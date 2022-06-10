@@ -3,7 +3,7 @@
 namespace App\DataManager\System;
 
 use App\DataManager\Base\DataManager;
-use App\Product;
+use App\Model\System\Product;
 
 class ProductDataManager extends DataManager
 {
