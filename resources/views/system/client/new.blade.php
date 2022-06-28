@@ -71,19 +71,6 @@
                     <div class="col-lg-8">
 
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">@lang('user.attribute.active'):</label>
-                            <div class="col-9">
-                                <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
-                                    <label>
-                                        <input type="checkbox" name="active" value="1" @if(old('active')) checked="checked" @endif>
-                                        <span></span>
-                                    </label>
-                                </span>
-                                <span class="form-text text-muted">@lang('user.help.active')</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label class="col-3 col-form-label">@lang('user.attribute.name')*</label>
                             <div class="col-9">
                                 <input type="text" name="name" value="{{old('name')}}" placeholder="@lang('user.placeholder.name')"

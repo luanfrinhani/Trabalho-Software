@@ -69,7 +69,7 @@ class ClientController extends Controller
                 ->withErrors($message->getErrors());
         }
 
-        return redirect(route('system.client.edit', ['client' => $message->getData()]));
+        return redirect(route('client.edit', ['client' => $message->getData()]));
     }
 
     /**
@@ -110,8 +110,9 @@ class ClientController extends Controller
      */
     public function update(Request $request, string $id): RedirectResponse
     {
-        $request->filled('active') ?: $request['active'] = 0;
-        $message = $this->clientService->update($request->all(), $id);
+        $data = $request->all();
+        $data['birth_date'] = Carbon::create($data['birth_date']);
+        $message = $this->clientService->update($data, $id);
 
         session()->flash('response', $message->getFlash());
 
@@ -121,7 +122,7 @@ class ClientController extends Controller
                 ->withErrors($message->getErrors());
         }
 
-        return redirect(route('system.client.edit', ['client' => $id]));
+        return redirect(route('client.edit', ['client' => $id]));
     }
 
     /**
@@ -139,6 +140,6 @@ class ClientController extends Controller
             return back()
                 ->withErrors($message->getErrors());
         }
-        return redirect(route('system.client.index'));
+        return redirect(route('client.index'));
     }
 }

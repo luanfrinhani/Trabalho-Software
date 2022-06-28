@@ -92,17 +92,61 @@
                             </div>
                         </div>
 
+                        <div class="row mb-5">
+                            <label class="col-3 col-form-label">Data de nascimento*</label>
+                            <div class="col-lg-4">
+                                <div class="input-group date">
+                                    <input type="text" name="birth_date" value="{{$client->birth_date}}"
+                                           class="input-border form-control kt_datepicker_1 @error('birth_date') is-invalid @enderror" readonly required>
+                                    <div class="input-group-append">
+                                                    <span class="date-icon input-group-text">
+                                                        <i class="la la-calendar"></i>
+                                                    </span>
+                                    </div>
+                                    @error('birth_date')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">@lang('user.attribute.email'):</label>
+                            <label class="col-3 col-form-label">Documento pessoal (CPF)*</label>
+                            <div class="col-9">
+                                <input type="text" name="personal_document" value="{{old('personal_document') ?? $client->personal_document}}"
+                                       class="form-control personal_document @error('personal_document') is-invalid @enderror">
+                                @error('personal_document')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">@lang('user.attribute.email')*</label>
                             <div class="col-9">
                                 <input type="email" name="email" value="{{old('email') ?? $client->email}}" placeholder="@lang('user.placeholder.email')"
-                                       class="form-control @error('email') is-invalid @enderror" disabled>
+                                       class="form-control @error('email') is-invalid @enderror">
                                 @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                                 @enderror
                                 <span class="form-text text-muted">@lang('user.help.email')</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Endereço*</label>
+                            <div class="col-9">
+                                <input type="text" name="address" value="{{old('address') ?? $client->address}}"
+                                       class="form-control @error('address') is-invalid @enderror">
+                                @error('address')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 
@@ -117,7 +161,7 @@
 
                 </div>
                 <div class="col-lg-6 kt-align-right">
-                    <form id="formRemoverUsuario" action="{{route('system.user.destroy', ['user' => $client])}}" method="POST" class="kt-form  form-remover">
+                    <form id="formRemoverUsuario" action="{{route('client.destroy', ['client' => $client])}}" method="POST" class="kt-form  form-remover">
                         @csrf
                         {{ method_field('DELETE') }}
                         <button type="submit" form="formRemoverUsuario" class="btn btn-danger btn-remover">
@@ -135,24 +179,45 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            $('#menu_item_usuario').addClass('kt-menu__item--active');
-            KTSelect2.init();
+            $('#menu_item_cliente').addClass('kt-menu__item--active');
+            $('.personal_document').inputmask({mask: ['999.999.999-99'], keepStatic: true, removeMaskOnSubmit: true})
+            KTBootstrapDatepicker.init();
         });
 
-        let KTSelect2 = function() {
-
-            let demos = function() {
-                // basic
-                $('#kt_select2_1, #kt_select2_1_validate').select2({
-                    placeholder: "Selecione um grupo",
-                    allowClear: true
-                });
+        let KTBootstrapDatepicker = function () {
+            let arrows;
+            if (KTUtil.isRTL()) {
+                arrows = {
+                    leftArrow: '<i class="la la-angle-right"></i>',
+                    rightArrow: '<i class="la la-angle-left"></i>'
+                }
+            } else {
+                arrows = {
+                    leftArrow: '<i class="la la-angle-left"></i>',
+                    rightArrow: '<i class="la la-angle-right"></i>'
+                }
             }
+
+            // Private functions
+            let demos = function () {
+                // minimum setup
+                $('.kt_datepicker_1').datepicker({
+                    rtl: KTUtil.isRTL(),
+                    todayHighlight: false,
+                    orientation: "bottom left",
+                    templates: arrows,
+                    clearBtn: true,
+                    language: 'pt-BR',
+                    startDate: "01-01-1900"
+                });
+            };
+
             return {
+                // public functions
                 init: function() {
                     demos();
                 }
             };
-        }()
+        }();
     </script>
 @endsection
