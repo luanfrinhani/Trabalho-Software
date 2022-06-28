@@ -5,13 +5,9 @@
             <span class="kt-header__topbar-username kt-hidden-mobile">
                 {{ auth()->user()->first_name }}
             </span>
-            @if(auth()->user()->avatar->count() > 0)
-                <img alt="Pic" src="{{ auth()->user()->avatar->first()->url }}" />
-            @else
                 <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">
                 {{ substr(auth()->user()->name, 0, 1)  }}
             </span>
-            @endif
 
             <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
 
@@ -22,13 +18,9 @@
         <!--begin: Head -->
         <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url({{asset('assets/media/misc/bg-1.jpg')}})">
             <div class="kt-user-card__avatar">
-                @if(auth()->user()->avatar->count() > 0)
-                    <img alt="Pic" src="{{ auth()->user()->avatar->first()->url }}" />
-                @else
                     <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">
                         {{ substr(auth()->user()->name, 0, 1)  }}
                     </span>
-                @endif
 
             </div>
             <div class="kt-user-card__name">

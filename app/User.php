@@ -2,11 +2,8 @@
 
 namespace App;
 
-use App\Model\Core\File;
-use App\Model\System\AvatarImage;
 use App\Notifications\System\ResetPasswordNotification;
-use App\Notifications\System\WelcomeUserNotification;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\Core\Uuid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -20,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Uuid;
 
     const ADMIN = 'admin';
     const CLIENT = 'client';
@@ -52,18 +49,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = [
-        'avatar'
-    ];
 
     protected $appends = [
         'label'
     ];
-
-    public function avatar()
-    {
-        return $this->belongsToMany(File::class, 'avatar_images');
-    }
 
     public function getFirstNameAttribute()
     {

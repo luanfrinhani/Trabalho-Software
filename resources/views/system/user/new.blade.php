@@ -82,16 +82,6 @@
                                 <span class="form-text text-muted">@lang('user.help.active')</span>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-3 col-sm-12">Grupo:*</label>
-                            <div class="col-lg-6">
-                                <select class="form-control kt-select2" id="kt_select2_1" name="group">
-                                    <option selected></option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="client">Cliente</option>
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="form-group row">
                             <label class="col-3 col-form-label">@lang('user.attribute.name'):</label>
@@ -143,23 +133,6 @@
     <script>
         $(document).ready(function(){
             $('#menu_item_usuario').addClass('kt-menu__item--active');
-            KTSelect2.init();
         });
-
-        let KTSelect2 = function() {
-
-            let demos = function() {
-                // basic
-                $('#kt_select2_1, #kt_select2_1_validate').select2({
-                    placeholder: "Selecione um grupo",
-                    allowClear: true
-                });
-            }
-            return {
-                init: function() {
-                    demos();
-                }
-            };
-        }()
     </script>
 @endsection

@@ -15,9 +15,8 @@ class ClientController extends Controller
 {
     protected ClientService $clientService;
 
-    public function __construct(ClientService $clientService)
+    public function __construct()
     {
-        $this->clientService = $clientService;
     }
 
     /**

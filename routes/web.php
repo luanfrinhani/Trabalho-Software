@@ -36,7 +36,7 @@ Route::group(
         //Rotas do User
         Route::prefix('system')->group(function () {
             //Rotas de autenticação
-            Auth::routes(['register' => false]);
+            Auth::routes();
 
             //Rotas de autenticação pelo IAM
 //            Route::get('/login', 'Auth\IAMController@login')->name('login');
@@ -63,11 +63,13 @@ Route::group(
                     ->name('system.profile.password.update');
 
                 // Rotas do produto
-                Route::resource('product', ProductController::class);
+
 
                 // Rotas do cliente
                 Route::resource('client', ClientController::class);
             });
+            Route::resource('product', ProductController::class);
         });
+
     }
 );
