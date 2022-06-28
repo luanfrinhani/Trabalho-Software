@@ -19,12 +19,12 @@
             @lang('system.label.system')
         </a>
         <span class="kt-subheader__breadcrumbs-separator"></span>
-        <a href="{{ route('system.user.index') }}" class="kt-subheader__breadcrumbs-link">
-            @lang('user.label.users')
+        <a href="{{ route('client.index') }}" class="kt-subheader__breadcrumbs-link">
+            Clientes
         </a>
         <span class="kt-subheader__breadcrumbs-separator"></span>
-        <a href="{{ route('system.user.create') }}" class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">
-            @lang('user.label.add')
+        <a href="{{ route('client.create') }}" class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">
+            Criar Cliente
         </a>
         <!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
     </div>
@@ -42,16 +42,16 @@
                     <i class="fa fa-user-plus kt-font-brand"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    @lang('user.label.add')
+                    Adicionar Cliente
 {{--                    <small>try to scroll the page</small>--}}
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
-                <a href="{{ route('system.user.index') }}" class="btn btn-clean kt-margin-r-10">
+                <a href="{{ route('client.index') }}" class="btn btn-clean kt-margin-r-10">
                     <i class="la la-arrow-left"></i>
                     <span class="kt-hidden-mobile">@lang('system.button.back')</span>
                 </a>
-                <button form="formCadastrarUsuario" type="submit" class="btn btn-success">
+                <button form="formCadastrarCliente" type="submit" class="btn btn-success">
                     <i class="la la-check"></i>
                     <span class="kt-hidden-mobile">@lang('system.button.save')</span>
                 </button>
@@ -63,7 +63,7 @@
                 <x-alert type="{{session('response.type')}}" message="{{session('response.message')}}"></x-alert>
             @endif
 
-            <form id="formCadastrarUsuario" action="{{route('system.user.store')}}" method="POST" class="kt-form">
+            <form id="formCadastrarCliente" action="{{route('client.store')}}" method="POST" class="kt-form">
                 @csrf
 
                 <div class="row">
@@ -82,19 +82,9 @@
                                 <span class="form-text text-muted">@lang('user.help.active')</span>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-3 col-sm-12">Grupo:*</label>
-                            <div class="col-lg-6">
-                                <select class="form-control kt-select2" id="kt_select2_1" name="group">
-                                    <option selected></option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="client">Cliente</option>
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">@lang('user.attribute.name'):</label>
+                            <label class="col-3 col-form-label">@lang('user.attribute.name')*</label>
                             <div class="col-9">
                                 <input type="text" name="name" value="{{old('name')}}" placeholder="@lang('user.placeholder.name')"
                                        class="form-control @error('name') is-invalid @enderror">
@@ -106,9 +96,43 @@
                                 <span class="form-text text-muted">@lang('user.help.name')</span>
                             </div>
                         </div>
+                        <div class="row mb-5">
+                            <label class="col-3 col-form-label">Data de nascimento*</label>
+                            <div class="col-lg-4">
+                                <div class="input-group date">
+                                    <input type="text" name="birth_date" value="{{old('birth_date')}}"
+                                           class="input-border form-control kt_datepicker_1 @error('birth_date') is-invalid @enderror required"
+                                           require
+                                    >
+                                    <div class="input-group-append">
+                                    <span class="date-icon input-group-text">
+                                        <i class="la la-calendar"></i>
+                                    </span>
+                                    </div>
+                                    @error('birth_date')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Documento pessoal (CPF)*</label>
+                            <div class="col-3">
+                                <input type="text" name="personal_document" value="{{old('personal_document')}}"
+                                       class="form-control client_cpf @error('personal_document') is-invalid @enderror">
+                                @error('personal_document')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">@lang('user.attribute.email'):</label>
+                            <label class="col-3 col-form-label">@lang('user.attribute.email')*</label>
                             <div class="col-9">
                                 <input type="email" name="email" value="{{old('email')}}" placeholder="@lang('user.placeholder.email')"
                                        class="form-control @error('email') is-invalid @enderror">
@@ -120,7 +144,18 @@
                                 <span class="form-text text-muted">@lang('user.help.email')</span>
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Endereço*</label>
+                            <div class="col-9">
+                                <input type="text" name="address" value="{{old('address')}}"
+                                       class="form-control @error('address') is-invalid @enderror">
+                                @error('address')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -142,24 +177,45 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            $('#menu_item_usuario').addClass('kt-menu__item--active');
-            KTSelect2.init();
+            $('#menu_item_cliente').addClass('kt-menu__item--active');
+            $('.client_cpf').inputmask({mask: ['999.999.999-99'], keepStatic: true, removeMaskOnSubmit: true});
+            KTBootstrapDatepicker.init();
         });
 
-        let KTSelect2 = function() {
-
-            let demos = function() {
-                // basic
-                $('#kt_select2_1, #kt_select2_1_validate').select2({
-                    placeholder: "Selecione um grupo",
-                    allowClear: true
-                });
+        let KTBootstrapDatepicker = function () {
+            let arrows;
+            if (KTUtil.isRTL()) {
+                arrows = {
+                    leftArrow: '<i class="la la-angle-right"></i>',
+                    rightArrow: '<i class="la la-angle-left"></i>'
+                }
+            } else {
+                arrows = {
+                    leftArrow: '<i class="la la-angle-left"></i>',
+                    rightArrow: '<i class="la la-angle-right"></i>'
+                }
             }
+
+            // Private functions
+            let demos = function () {
+                // minimum setup
+                $('.kt_datepicker_1').datepicker({
+                    rtl: KTUtil.isRTL(),
+                    todayHighlight: false,
+                    orientation: "bottom left",
+                    templates: arrows,
+                    clearBtn: true,
+                    language: 'pt-BR',
+                    startDate: "01-01-1900"
+                });
+            };
+
             return {
+                // public functions
                 init: function() {
                     demos();
                 }
             };
-        }()
+        }();
     </script>
 @endsection

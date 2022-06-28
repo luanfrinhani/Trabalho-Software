@@ -4,6 +4,7 @@ namespace App\Http\Controllers\System\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Service\System\ClientService;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,8 +16,9 @@ class ClientController extends Controller
 {
     protected ClientService $clientService;
 
-    public function __construct()
+    public function __construct(ClientService $clientService)
     {
+        $this->clientService = $clientService;
     }
 
     /**
@@ -30,11 +32,11 @@ class ClientController extends Controller
 
         if ($message->isError()) {
             session()->flash('response', $message->getFlash());
-            return view('system.user.index', ['users' => []]);
+            return view('system.client.index', ['clients' => []]);
         }
 
-        $users = $message->getData();
-        return view('system.client.index', ['users' => $users]);
+        $clients = $message->getData();
+        return view('system.client.index', ['clients' => $clients]);
     }
 
     /**
@@ -55,8 +57,9 @@ class ClientController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->filled('active') ?: $request['active'] = 0;
-        $message = $this->clientService->create($request->all());
+        $data = $request->all();
+        $data['birth_date'] = Carbon::create($data['birth_date']);
+        $message = $this->clientService->create($data);
 
         session()->flash('response', $message->getFlash());
 
@@ -66,7 +69,7 @@ class ClientController extends Controller
                 ->withErrors($message->getErrors());
         }
 
-        return redirect(route('system.client.edit', ['user' => $message->getData()]));
+        return redirect(route('system.client.edit', ['client' => $message->getData()]));
     }
 
     /**
@@ -95,7 +98,7 @@ class ClientController extends Controller
             abort(401);
         }
 
-        return view('system.client.edit', ['user' => $message->getData()]);
+        return view('system.client.edit', ['client' => $message->getData()]);
     }
 
     /**
@@ -118,7 +121,7 @@ class ClientController extends Controller
                 ->withErrors($message->getErrors());
         }
 
-        return redirect(route('system.client.edit', ['user' => $id]));
+        return redirect(route('system.client.edit', ['client' => $id]));
     }
 
     /**

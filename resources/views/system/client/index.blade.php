@@ -19,8 +19,8 @@
             @lang('system.label.system')
         </a>
         <span class="kt-subheader__breadcrumbs-separator"></span>
-        <a href="{{ route('system.user.index') }}" class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">
-            @lang('user.label.users')
+        <a href="{{ route('client.index') }}" class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">
+            Clientes
         </a>
 
         <!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
@@ -39,15 +39,15 @@
                     <i class="fa fa-users kt-font-brand"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    @lang('user.label.users')
+                    Clientes
 {{--                    <small>try to scroll the page</small>--}}
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
-                <a href="{{ route('system.user.create') }}" class="btn btn-brand">
+                <a href="{{ route('client.create') }}" class="btn btn-brand">
                     <i class="la la-plus"></i>
                     <span class="kt-hidden-mobile">
-                        @lang('user.label.add')
+                        Adicionar Cliente
                     </span>
                 </a>
             </div>
@@ -64,36 +64,24 @@
 {{--                    <th>Id</th>--}}
                     <th>@lang('user.attribute.name')</th>
                     <th>@lang('user.attribute.email')</th>
-                    <th>@lang('user.attribute.active')</th>
                     <th>@lang('system.label.actions')</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @foreach($clients as $client)
                     <tr>
 {{--                        <td>{{$user->id}}</td>--}}
                         <td>
                             <div class="kt-user-card-v2">
-                                <div class="kt-user-card-v2__pic">
-                                    <img class="kt-hidden" src="{{ asset('assets/media/users/100_1.jpg') }}" alt="photo">
-                                    <div class="kt-badge kt-badge--xl kt-badge--success">{{substr($user->name, 0, 1)}}</div>
-                                </div>
                                 <div class="kt-user-card-v2__details">
-                                    <a href="#" class="kt-user-card-v2__name">{{$user->name}}</a>
-                                    <span class="kt-user-card-v2__desc">{{$user->email}}</span>
+                                    <a href="#" class="kt-user-card-v2__name">{{$client->name}}</a>
+                                    <span class="kt-user-card-v2__desc">{{$client->email}}</span>
                                 </div>
                             </div>
                         </td>
-                        <td>{{$user->email}}</td>
-                        <td>
-                            @if($user->active)
-                                <span class="kt-font-bold kt-font-success">@lang('system.label.yes')</span>
-                            @else
-                                <span class="kt-font-bold kt-font-danger">@lang('system.label.no')</span>
-                            @endif
-                        </td>
+                        <td>{{$client->email}}</td>
                         <td nowrap>
-                            <a href="{{route('system.user.edit', ['user' => $user->id])}}" class="btn btn-sm btn-brand">
+                            <a href="{{route('client.edit', ['client' => $client->id])}}" class="btn btn-sm btn-brand">
                                 <i class="fa fa-pencil-alt"></i>
                             </a>
                         </td>
@@ -120,7 +108,7 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            $('#menu_item_usuario').addClass('kt-menu__item--active');
+            $('#menu_item_cliente').addClass('kt-menu__item--active');
         });
     </script>
 @endsection
