@@ -38,7 +38,7 @@
                 <div class="kt-login__container">
                     <div class="kt-login__logo">
                         <a href="{{route('login')}}">
-                            <img src="{{asset('assets/media/logos/logo-uppersoft-vertical.png')}}" width="125px">
+                            <img src="{{asset('assets/media/project-logos/LumberTech_logo_menor.png')}}" height="125px">
                         </a>
                     </div>
                     @yield('content')
