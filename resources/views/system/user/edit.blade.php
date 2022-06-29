@@ -77,24 +77,6 @@
                     <div class="col-lg-8">
 
                         <input type="hidden" name="first_time" value="1">
-
-                        <div class="form-group row">
-                            <label class="col-3 col-form-label">@lang('user.attribute.active'):</label>
-                            <div class="col-9">
-                                <span class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
-                                <label>
-                                    <input type="checkbox" name="active" value="1"
-                                           @if( ($user->active == 0 && old('active') && old('first_time')) || ($user->active && old('active') == null && old('first_time') == null) || ($user->active && old('active') && old('first_time') ) )
-                                           checked="checked"
-                                        @endif
-                                    >
-                                    <span></span>
-                                </label>
-                            </span>
-                                <span class="form-text text-muted">@lang('user.help.active')</span>
-                            </div>
-                        </div>
-
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3 col-sm-12">Grupo:*</label>
                             <div class="col-lg-6">

@@ -42,7 +42,7 @@
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
         <a href="{{route('home')}}">
-            <img alt="Logo" src="{{asset('assets/media/logos/UpCities_Procon.png')}}" width="200px"/>
+            <img alt="Logo" src="{{asset('assets/media/project-logos/LumberTech_logo_menor.png')}}" width="125px"/>
         </a>
     </div>
     <div class="kt-header-mobile__toolbar">
@@ -67,7 +67,7 @@
             <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                 <div class="kt-aside__brand-logo">
                     <a href="{{route('home')}}">
-                        <img alt="Logo" src="{{asset('assets/media/logos/UpCities_Procon.png')}}" width="200px"/>
+                        <img alt="Logo" src="{{asset('assets/media/project-logos/LumberTech_logo_menor.png')}}" width="125px"/>
                     </a>
                 </div>
                 <div class="kt-aside__brand-tools">

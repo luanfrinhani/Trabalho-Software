@@ -22,6 +22,17 @@
                 <i class="kt-menu__section-icon flaticon-more-v2"></i>
             </li>
 
+            <li id="menu_item_material" class="kt-menu__item " aria-haspopup="true">
+                <a href="{{route('material.index')}}" class="kt-menu__link ">
+                    <span class="kt-menu__link-icon">
+                       <i class="fas fa-tree"></i>
+                    </span>
+                    <span class="kt-menu__link-text">
+                        Materiais
+                    </span>
+                </a>
+            </li>
+
             <li id="menu_item_cliente" class="kt-menu__item " aria-haspopup="true">
                 <a href="{{route('client.index')}}" class="kt-menu__link ">
                     <span class="kt-menu__link-icon">

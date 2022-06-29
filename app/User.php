@@ -19,16 +19,13 @@ class User extends Authenticatable
 {
     use Notifiable, Uuid;
 
-    const ADMIN = 'admin';
-    const CLIENT = 'client';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active', 'group'
+        'name', 'email', 'password',
     ];
 
     /**

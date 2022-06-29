@@ -56,7 +56,6 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->filled('active') ?: $request['active'] = 0;
         $message = $this->service->create($request->all());
 
         session()->flash('response', $message->getFlash());
@@ -108,7 +107,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        $request->filled('active') ?: $request['active'] = 0;
         $message = $this->service->update($request->all(), $id);
 
         session()->flash('response', $message->getFlash());

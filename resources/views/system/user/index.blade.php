@@ -64,7 +64,6 @@
 {{--                    <th>Id</th>--}}
                     <th>@lang('user.attribute.name')</th>
                     <th>@lang('user.attribute.email')</th>
-                    <th>@lang('user.attribute.active')</th>
                     <th>@lang('system.label.actions')</th>
                 </tr>
                 </thead>
@@ -85,13 +84,6 @@
                             </div>
                         </td>
                         <td>{{$user->email}}</td>
-                        <td>
-                            @if($user->active)
-                                <span class="kt-font-bold kt-font-success">@lang('system.label.yes')</span>
-                            @else
-                                <span class="kt-font-bold kt-font-danger">@lang('system.label.no')</span>
-                            @endif
-                        </td>
                         <td nowrap>
                             <a href="{{route('system.user.edit', ['user' => $user->id])}}" class="btn btn-sm btn-brand">
                                 <i class="fa fa-pencil-alt"></i>

@@ -49,7 +49,6 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request): bool
     {
         $credentials = $this->credentials($request);
-        $credentials['active'] = true;
 
         return $this->guard()->attempt(
             $credentials,
