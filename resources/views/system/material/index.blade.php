@@ -71,18 +71,11 @@
                 <tbody>
                 @foreach($materiais as $material)
                     <tr>
-                                                <td>{{$material->id}}</td>
-                        <td>
-                            <div class="kt-user-card-v2">
-                                <div class="kt-user-card-v2__details">
-                                    <a href="#" class="kt-user-card-v2__name">{{$material->name}}</a>
-                                    <span class="kt-user-card-v2__desc">{{$material->amount}}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>{{$material->price}}</td>
+                        <td>{{$material->name}}</td>
+                        <td>{{$material->amount}}</td>
+                        <td class="preço_material">{{$material->price}}</td>
                         <td nowrap>
-                            <a href="{{route('material.edit', ['client' => $material->id])}}" class="btn btn-sm btn-brand">
+                            <a href="{{route('material.edit', ['material' => $material->id])}}" class="btn btn-sm btn-brand">
                                 <i class="fa fa-pencil-alt"></i>
                             </a>
                         </td>
@@ -110,6 +103,7 @@
     <script>
         $(document).ready(function(){
             $('#menu_item_material').addClass('kt-menu__item--active');
+            $('.preço_material').inputmask({mask: ['R$9,99','R$99,99','R$999,99','R$9.999,99','R$99.999,99',], keepStatic: true, removeMaskOnSubmit: true});
         });
     </script>
 @endsection

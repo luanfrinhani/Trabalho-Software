@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\System\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\System\Material;
 use App\Service\System\MaterialService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,46 +46,76 @@ class MaterialController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return View|RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): View|RedirectResponse
     {
-        //
+        $message = $this->materialService->create($request->all());
+        session()->flash('response', $message->getFlash());
+        if ($message->isError()) {
+            return back()->withErrors($message->getErrors())->withInput($request->all());
+        }
+        /** @var Material $materiais */
+        $materiais = $message->getData();
+
+        return view('system.material.index', ['materiais' => $materiais]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $id
+     * @return View|RedirectResponse
      */
-    public function show($id)
+    public function show(string $id): View|RedirectResponse
     {
-        //
+        $message = $this->materialService->find($id);
+        if ($message->isError()) {
+            session()->flash('response', $message->getFlash());
+            return back()->withErrors($message->getErrors());
+        }
+        /** @var Material $material */
+        $material = $message->getData();
+
+        return view('system.material.show', ['material' => $material]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $id
+     * @return View|RedirectResponse
      */
-    public function edit($id)
+    public function edit(string $id): View|RedirectResponse
     {
-        //
+        $message = $this->materialService->find($id);
+        if ($message->isError()) {
+            session()->flash('response', $message->getFlash());
+            return back()->withErrors($message->getErrors());
+        }
+        /** @var Material $material */
+        $material = $message->getData();
+
+        return view('system.material.edit', ['material' => $material]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  string  $id
+     * @return View|RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id): View|RedirectResponse
     {
-        //
+        $message = $this->materialService->update($request->all(), $id);
+        session()->flash('response', $message->getFlash());
+        if ($message->isError()) {
+            return back()->withErrors($message->getErrors())->withInput($request->all());
+        }
+
+        return view('system.material.index');
     }
 
     /**

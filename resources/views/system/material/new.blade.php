@@ -79,7 +79,6 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                                <span class="form-text text-muted">@lang('user.help.name')</span>
                             </div>
                         </div>
 
