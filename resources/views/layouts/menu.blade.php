@@ -33,6 +33,17 @@
                 </a>
             </li>
 
+            <li id="menu_item_pedido" class="kt-menu__item " aria-haspopup="true">
+                <a href="{{route('pedido.index')}}" class="kt-menu__link ">
+                    <span class="kt-menu__link-icon">
+                       <i class="fas fa-clipboard-list"></i>
+                    </span>
+                    <span class="kt-menu__link-text">
+                        Pedidos
+                    </span>
+                </a>
+            </li>
+
             <li id="menu_item_cliente" class="kt-menu__item " aria-haspopup="true">
                 <a href="{{route('client.index')}}" class="kt-menu__link ">
                     <span class="kt-menu__link-icon">
