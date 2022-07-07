@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\System\Admin\ClientController;
 use App\Http\Controllers\System\Admin\MaterialController;
+use App\Http\Controllers\System\Admin\PedidoController;
 use App\Http\Controllers\System\Admin\ProductController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,9 @@ Route::group(
 
                 // Rotas do produto
                 Route::resource('material', MaterialController::class);
+
+                // Rotas de pedido
+                Route::resource('pedido', PedidoController::class);
 
                 // Rotas do cliente
                 Route::resource('client', ClientController::class);
