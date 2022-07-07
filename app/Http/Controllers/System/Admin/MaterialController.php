@@ -56,10 +56,8 @@ class MaterialController extends Controller
         if ($message->isError()) {
             return back()->withErrors($message->getErrors())->withInput($request->all());
         }
-        /** @var Material $materiais */
-        $materiais = $message->getData();
 
-        return view('system.material.index', ['materiais' => $materiais]);
+        return redirect()->route('material.index');
     }
 
     /**
@@ -115,17 +113,23 @@ class MaterialController extends Controller
             return back()->withErrors($message->getErrors())->withInput($request->all());
         }
 
-        return view('system.material.index');
+        return redirect()->route('material.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $id
+     * @return RedirectResponse|View
      */
-    public function destroy($id)
+    public function destroy(string $id): View|RedirectResponse
     {
-        //
+        $message = $this->materialService->delete($id);
+        session()->flash('response', $message->getFlash());
+        if ($message->isError()) {
+            return back()->withErrors($message->getErrors());
+        }
+
+        return redirect()->route('material.index');
     }
 }

@@ -59,10 +59,9 @@
             @if(session('response'))
                 <x-alert type="{{session('response.type')}}" message="{{session('response.message')}}"></x-alert>
             @endif
-            <form id="formEditSurvey" method="POST" class="kt-form kt-form--label-right"
-                  enctype="multipart/form-data">
+            <form id="formEditarMaterial" action="{{route('material.update', ['material' => $material->id])}}" method="POST" class="kt-form kt-form--label-right">
                 @csrf
-
+                @method('PUT')
                 <div class="kt-portlet__body">
                     <div class="form-group row">
                         <label class="col-3 col-form-label">Nome*</label>
