@@ -85,9 +85,9 @@
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Quantidade*</label>
                             <div class="col-4">
-                                <input type="number" name="amount" value="{{old('amount')}}"
-                                       class="form-control @error('amount') is-invalid @enderror">
-                                @error('amount')
+                                <input type="number" name="material_amount" value="{{old('material_amount')}}"
+                                       class="form-control @error('material_amount') is-invalid @enderror">
+                                @error('material_amount')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -98,7 +98,7 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3 col-sm-12">Material*</label>
                             <div class="col-lg-4 col-md-9 col-sm-12">
-                                <select class="form-control kt-select2" name="material">
+                                <select class="form-control kt-select2" name="material_id">
                                     <option value="{{ null }}" selected></option>
                                     @foreach($materiais as $material)
                                         <option value="{{$material->id}}">{{$material->name}}</option>
