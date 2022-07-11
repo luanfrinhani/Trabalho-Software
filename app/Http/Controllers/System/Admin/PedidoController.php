@@ -3,18 +3,23 @@
 namespace App\Http\Controllers\System\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\System\Material;
+use App\Service\System\MaterialService;
 use App\Service\System\PedidoService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PedidoController extends Controller
 {
     protected PedidoService $pedidoService;
+    protected MaterialService $materialService;
 
-    public function __construct(PedidoService $pedidoService)
+    public function __construct(PedidoService $pedidoService, MaterialService $materialService)
     {
         $this->pedidoService = $pedidoService;
+        $this->materialService = $materialService;
     }
 
     /**
@@ -36,11 +41,19 @@ class PedidoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return View
+     * @return RedirectResponse|View
      */
-    public function create(): View
+    public function create(): RedirectResponse|View
     {
-        return view('system.pedido.new');
+        $message = $this->materialService->all(['id', 'name']);
+        if ($message->isError()) {
+            session()->flash('response', $message->getFlash());
+            return back()->withErrors($message->getErrors());
+        }
+        /** @var Material $materiais */
+        $materiais = $message->getData();
+
+        return view('system.pedido.new', ['materiais' => $materiais]);
     }
 
     /**
@@ -51,7 +64,9 @@ class PedidoController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $message = $this->pedidoService->create($request->all());
+        $data = $request->all();
+        $data['client_id'] = Auth::user()->id;
+        $message = $this->pedidoService->create($data);
         session()->flash('response', $message->getFlash());
         if ($message->isError()) {
             return back()->withErrors($message->getErrors())->withInput($request->all());
