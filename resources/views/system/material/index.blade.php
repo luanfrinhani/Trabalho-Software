@@ -73,7 +73,7 @@
                     <tr>
                         <td>{{$material->name}}</td>
                         <td>{{$material->amount}}</td>
-                        <td class="preço_material">{{$material->price}}</td>
+                        <td class="preço_material">R${{$material->price}}</td>
                         <td nowrap>
                             <a href="{{route('material.edit', ['material' => $material->id])}}" class="btn btn-sm btn-brand">
                                 <i class="fa fa-pencil-alt"></i>
@@ -103,7 +103,7 @@
     <script>
         $(document).ready(function(){
             $('#menu_item_material').addClass('kt-menu__item--active');
-            $('.preço_material').inputmask({mask: ['R$9,99','R$99,99','R$999,99','R$9.999,99','R$99.999,99',], keepStatic: true, removeMaskOnSubmit: true});
+            // $('.preço_material').inputmask({mask: ['R$9,99','R$99,99','R$999,99','R$9.999,99','R$99.999,99',], keepStatic: true, removeMaskOnSubmit: true});
         });
     </script>
 @endsection
