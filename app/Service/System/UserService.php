@@ -78,6 +78,8 @@ class UserService extends Service
 
             $token = $this->broker()->createToken($user);
 
+            $user->sendWelcomeUserNotificaiton($token);
+
             event(new Registered($user));
         }
         return $message;
