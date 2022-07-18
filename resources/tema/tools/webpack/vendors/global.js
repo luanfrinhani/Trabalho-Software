@@ -87,7 +87,7 @@ require("../../../src/assets/js/global/integration/plugins/bootstrap-notify.init
 // Bootstrap-Datepicker
 require("bootstrap-datepicker/dist/css/bootstrap-datepicker3.css");
 require("bootstrap-datepicker");
-require("bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js");
+require("bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js");
 require("../../../src/assets/js/global/integration/plugins/bootstrap-datepicker.init");
 
 // Bootstrap-Datetimepicker
