@@ -80,10 +80,10 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3 col-sm-12">Grupo:*</label>
                             <div class="col-lg-6">
-                                <select class="form-control kt-select2" id="kt_select2_1" name="group">
-                                    <option selected value="{{$user->group}}">{{$user->label}}</option>
-                                    @if($user->group != 'admin') <option value="admin">Administrador</option> @endif
-                                    @if($user->group != 'client') <option value="client">Cliente</option> @endif
+                                <select class="form-control selectpicker" name="group">
+                                    <option selected value="{{$user->group->value}}">{{$user->label}}</option>
+                                    @if($user->group->value != 'admin') <option value="admin">Administrador</option> @endif
+                                    @if($user->group->value != 'client') <option value="client">Cliente</option> @endif
                                 </select>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                             <label class="col-3 col-form-label">@lang('user.attribute.email'):</label>
                             <div class="col-9">
                                 <input type="email" name="email" value="{{old('email') ?? $user->email}}" placeholder="@lang('user.placeholder.email')"
-                                       class="form-control @error('email') is-invalid @enderror" disabled>
+                                       class="form-control @error('email') is-invalid @enderror">
                                 @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}

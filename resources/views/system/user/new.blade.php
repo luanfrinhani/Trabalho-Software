@@ -70,7 +70,7 @@
                     <div class="col-lg-2"></div>
                     <div class="col-lg-8">
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">@lang('user.attribute.name'):</label>
+                            <label class="col-3 col-form-label">@lang('user.attribute.name')*</label>
                             <div class="col-9">
                                 <input type="text" name="name" value="{{old('name')}}" placeholder="@lang('user.placeholder.name')"
                                        class="form-control @error('name') is-invalid @enderror">
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">@lang('user.attribute.email'):</label>
+                            <label class="col-3 col-form-label">@lang('user.attribute.email')*</label>
                             <div class="col-9">
                                 <input type="email" name="email" value="{{old('email')}}" placeholder="@lang('user.placeholder.email')"
                                        class="form-control @error('email') is-invalid @enderror">
@@ -94,6 +94,21 @@
                                 </div>
                                 @enderror
                                 <span class="form-text text-muted">@lang('user.help.email')</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">@lang('user.label.group')*</label>
+                            <div class="col-9">
+                                <select id="group" class="form-control selectpicker @error('group') is-invalid @enderror" name="group"
+                                title="Selecione uma opção">
+                                    <option value="admin">Administrador</option>
+                                    <option value="client">Cliente</option>
+                                </select>
+                                @error('group')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 

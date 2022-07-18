@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Enum\UserGroupTypeEnum;
 use App\Notifications\System\ResetPasswordNotification;
 use App\Traits\Core\Uuid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,10 +10,10 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @property string email
- * @property mixed id
+ * @property string id
  * @property string password
  * @property string name
- * @property string group
+ * @property UserGroupTypeEnum group
  * @property string label
  */
 class User extends Authenticatable
@@ -25,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'group'
     ];
 
     /**
@@ -44,6 +45,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'group' => UserGroupTypeEnum::class,
     ];
 
 
@@ -58,7 +60,7 @@ class User extends Authenticatable
 
     public function getLabelAttribute()
     {
-        return $this->label = trans('user.label.' . $this->group);
+        return $this->label = trans('user.label.' . $this->group->value);
     }
 
     public function sendPasswordResetNotification($token)

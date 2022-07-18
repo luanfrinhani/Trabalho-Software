@@ -98,8 +98,8 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3 col-sm-12">Material*</label>
                             <div class="col-lg-4 col-md-9 col-sm-12">
-                                <select class="form-control kt-select2" name="material_id">
-                                    <option value="{{ null }}" selected></option>
+                                <select class="form-control selectpicker" name="material_id" id="select_material"
+                                        title="Selecione uma opção">
                                     @foreach($materiais as $material)
                                         <option value="{{$material->id}}">{{$material->name}}</option>
                                     @endforeach
@@ -107,18 +107,18 @@
                             </div>
                         </div>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <label class="col-3 col-form-label">Preço*</label>--}}
-{{--                            <div class="col-4">--}}
-{{--                                <input type="text" name="price" value="{{old('price')}}"--}}
-{{--                                       class="form-control preço_material @error('price') is-invalid @enderror">--}}
-{{--                                @error('price')--}}
-{{--                                <div class="invalid-feedback">--}}
-{{--                                    {{ $message }}--}}
-{{--                                </div>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label">Preço*</label>
+                            <div class="col-4">
+                                <input type="text" name="price" value="" id="price-material"
+                                       class="form-control preço_material @error('price') is-invalid @enderror">
+                                @error('price')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Data de Entrega*</label>
@@ -165,7 +165,6 @@
             $('#menu_item_pedido').addClass('kt-menu__item--active');
             $('.preço_material').inputmask({mask: ['9,99','99,99','999,99','9.999,99','99.999,99',], keepStatic: true, removeMaskOnSubmit: true});
             KTBootstrapDatepicker.init();
-            KTSelect2.init();
         });
 
         let KTBootstrapDatepicker = function () {
@@ -204,18 +203,23 @@
             };
         }();
 
-        let KTSelect2 = function() {
-            let demos = function () {
-                $('.kt-select2').select2({
-                    placeholder: "Selecione o Material",
-                });
-            }
-
-            return {
-                init: function () {
-                    demos();
+        $('select#select_material').on('change', function (e) {
+            e.preventDefault();
+            let selected_material = $(this).children("option:selected").val();
+            let getPrice = "{{route('material.getPrice.ajax', ['material_id' => 'material_id'])}}";
+            getPrice = getPrice.replace('material_id', selected_material);
+            $.ajax({
+                type:"GET",
+                dataType:"json",
+                url: getPrice,
+                success:function(price){
+                    console.log(price);
+                    $('#price-material').val(price);
+                },
+                error: function (getPrice) {
+                    console.log(getPrice);
                 }
-            }
-        }();
+            })
+        })
     </script>
 @endsection
