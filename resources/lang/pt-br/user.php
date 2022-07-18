@@ -13,6 +13,7 @@ return [
         'users' => 'Usuários',
         'admin' => 'Administrador',
         'client' => 'Cliente',
+        'group' => 'Grupo',
     ],
     'attribute' => [
         'avatar' => 'Avatar',

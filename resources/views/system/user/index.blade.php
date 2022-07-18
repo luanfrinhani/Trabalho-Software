@@ -64,6 +64,7 @@
 {{--                    <th>Id</th>--}}
                     <th>@lang('user.attribute.name')</th>
                     <th>@lang('user.attribute.email')</th>
+                    <th>@lang('user.label.group')</th>
                     <th>@lang('system.label.actions')</th>
                 </tr>
                 </thead>
@@ -84,6 +85,7 @@
                             </div>
                         </td>
                         <td>{{$user->email}}</td>
+                        <td>{{$user->label}}</td>
                         <td nowrap>
                             <a href="{{route('system.user.edit', ['user' => $user->id])}}" class="btn btn-sm btn-brand">
                                 <i class="fa fa-pencil-alt"></i>

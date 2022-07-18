@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('client_id')->constrained('clients');
+            $table->foreignUuid('user_id')->constrained('users');
             $table->text('description');
             $table->string('status');
             $table->date('delivery_date');
