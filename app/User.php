@@ -4,6 +4,7 @@ namespace App;
 
 use App\Enum\UserGroupTypeEnum;
 use App\Notifications\System\ResetPasswordNotification;
+use App\Notifications\System\WelcomeUserNotification;
 use App\Traits\Core\Uuid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -66,5 +67,10 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function sendWelcomeUserNotificaiton($token)
+    {
+        $this->notify(new WelcomeUserNotification($token));
     }
 }
