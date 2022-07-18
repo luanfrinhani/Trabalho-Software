@@ -64,6 +64,15 @@ class User extends Authenticatable
         return $this->label = trans('user.label.' . $this->group->value);
     }
 
+    public function isClient(User $user)
+    {
+        if ($user->group == UserGroupTypeEnum::CLIENT) {
+            return null;
+        }
+
+        return true;
+    }
+
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
