@@ -11,10 +11,8 @@
 |
 */
 
-use App\Http\Controllers\System\Admin\ClientController;
 use App\Http\Controllers\System\Admin\MaterialController;
 use App\Http\Controllers\System\Admin\PedidoController;
-use App\Http\Controllers\System\Admin\ProductController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -31,9 +29,7 @@ Route::group(
         'middleware' => SetLocale::class
     ],
     function () {
-        Route::get('/', function () {
-            return view('welcome');
-        })->name('welcome');
+        Route::get('/',[PedidoController::class, 'index'])->name('welcome');
 
         //Rotas do User
         Route::prefix('system')->group(function () {
@@ -47,7 +43,7 @@ Route::group(
 //            Route::post('/logout', 'Auth\IAMController@logout')->name('logout');
 //            Route::get('/callback', 'Auth\IAMController@callback')->name('callback');
 
-            Route::middleware('auth')->group(function () {
+            Route::middleware(['auth'])->group(function () {
                 Route::get('/', 'HomeController@index')->name('home');
                 Route::resource('/user', 'System\Admin\UserController', ['as' => 'system']);
                 //Rotas de usuarios pelo IAM
@@ -64,14 +60,12 @@ Route::group(
                 Route::match(['put', 'patch'], '/profile/password', 'System\Admin\ProfileController@updatePassword')
                     ->name('system.profile.password.update');
 
-                // Rotas do produto
-                Route::resource('material', MaterialController::class);
-
                 // Rotas de pedido
                 Route::resource('pedido', PedidoController::class);
 
-                // Rotas do cliente
-                Route::resource('client', ClientController::class);
+                // Rotas do produto
+                Route::resource('material', MaterialController::class);
+                Route::get('material/get-price/{material_id}', [MaterialController::class, 'getPriceAjax'])->name('material.getPrice.ajax');
             });
         });
 

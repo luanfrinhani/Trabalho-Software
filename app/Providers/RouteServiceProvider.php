@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/system';
+    public const HOME = '/system/pedido';
 
     /**
      * Define your route model bindings, pattern filters, etc.

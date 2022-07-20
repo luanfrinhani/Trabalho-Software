@@ -26,8 +26,8 @@ class IAMGuardServiceProvider extends ServiceProvider
             return new IAMUserProvider($config['model']);
         });
 
-        Gate::define('iam-web', function ($user, $roles, $resource = '') {
-            return $user->hasRole($roles, $resource) ?: null;
+        Gate::define('user-client', function ($user) {
+            return $user->isClient($user) ?: null;
         });
 
         Gate::define('iam-api', function ($user, $roles, $resource = '') {
