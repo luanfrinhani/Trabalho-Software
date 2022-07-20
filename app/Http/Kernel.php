@@ -8,7 +8,9 @@ use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
+use App\Http\Middleware\VerifyClient;
 use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\VerifyAdmin;
 use Idempotency\Idempotency;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
@@ -83,6 +85,8 @@ class Kernel extends HttpKernel
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
+        'verify_admin' => VerifyAdmin::class,
+        'verify_client' => VerifyClient::class,
     ];
 
     /**
