@@ -6,6 +6,7 @@ use App\Traits\Core\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property string id
  * @property string name
  * @property int amount
  * @property double price
