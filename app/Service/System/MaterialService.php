@@ -11,6 +11,15 @@ class MaterialService extends Service
     public function __construct(Material $model, MaterialDataManager $dataManager)
     {
         parent::__construct($model, $dataManager);
+        $this->dataManager = $dataManager;
+    }
+
+    public function getPrice(string $material_id, int $amount): float|int
+    {
+        $message = $this->dataManager->getPrice($material_id);
+        $materialPrice = $message->getData();
+
+        return $materialPrice * $amount;
     }
 
     public function rules($id): array

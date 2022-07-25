@@ -5,6 +5,7 @@ namespace App\Http\Controllers\System\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\System\Material;
 use App\Service\System\MaterialService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -131,5 +132,12 @@ class MaterialController extends Controller
         }
 
         return redirect()->route('material.index');
+    }
+
+    public function materialPriceAjax(string $materialId, int $amount): JsonResponse
+    {
+        $totalPrice = $this->materialService->getPrice($materialId, $amount);
+
+        return response()->json($totalPrice);
     }
 }
