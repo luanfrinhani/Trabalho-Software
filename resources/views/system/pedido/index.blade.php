@@ -73,9 +73,9 @@
                 @foreach($pedidos as $pedido)
                     <tr>
                         <td>{{$pedido->description}}</td>
-                        <td class="preço_pedido">{{$pedido->price}}</td>
-                        <td>{{$pedido->delivery_date}}</td>
-                        <td>{{$pedido->status}}</td>
+                        <td class="preço_pedido">R${{$pedido->price}}</td>
+                        <td>{{\Carbon\Carbon::parse($pedido->delivery_date)->format('d/m/Y')}}</td>
+                        <td>{{$pedido->label}}</td>
                         <td nowrap>
                             <a href="{{route('pedido.edit', ['pedido' => $pedido->id])}}" class="btn btn-sm btn-brand">
                                 <i class="fa fa-pencil-alt"></i>
@@ -105,7 +105,7 @@
     <script>
         $(document).ready(function(){
             $('#menu_item_pedido').addClass('kt-menu__item--active');
-            $('.preço_pedido').inputmask({mask: ['R$9,99','R$99,99','R$999,99','R$9.999,99','R$99.999,99',], keepStatic: true, removeMaskOnSubmit: true});
+            // $('.preço_pedido').inputmask({mask: ['R$9,99','R$99,99','R$999,99','R$9.999,99','R$99.999,99',], keepStatic: true, removeMaskOnSubmit: true});
         });
     </script>
 @endsection

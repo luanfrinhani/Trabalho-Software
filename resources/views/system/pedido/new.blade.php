@@ -51,7 +51,7 @@
                     <i class="la la-arrow-left"></i>
                     <span class="kt-hidden-mobile">@lang('system.button.back')</span>
                 </a>
-                <button form="formCadastrarPedido" type="submit" class="btn btn-success">
+                <button class="btn btn-success" data-toggle="modal" data-target="#confirmarPedido" onclick="criaForm()">
                     <i class="la la-check"></i>
                     <span class="kt-hidden-mobile">@lang('system.button.save')</span>
                 </button>
@@ -72,7 +72,7 @@
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Descrição*</label>
                             <div class="col-9">
-                                <input type="text" name="description" value="{{old('description')}}"
+                                <input type="text" id="description" name="description" value="{{old('description')}}"
                                        class="form-control @error('description') is-invalid @enderror" required>
                                 @error('description')
                                 <div class="invalid-feedback">
@@ -85,7 +85,7 @@
                         <div class="form-group row">
                             <label class="col-3 col-form-label">Quantidade*</label>
                             <div class="col-4">
-                                <input type="number" name="material_amount" value="{{old('material_amount')}}"
+                                <input type="number" id="amount" name="material_amount" value="{{old('material_amount')}}"
                                        class="form-control @error('material_amount') is-invalid @enderror">
                                 @error('material_amount')
                                 <div class="invalid-feedback">
@@ -108,22 +108,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">Preço*</label>
-                            <div class="col-4">
-                                <input type="text" name="price" value="" id="price-material"
-                                       class="form-control preço_material @error('price') is-invalid @enderror">
-                                @error('price')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label class="col-3 col-form-label">Data de Entrega*</label>
                             <div class="col-4 input-group date">
-                                <input type="text" name="delivery_date" value="{{old('delivery_date')}}"
+                                <input type="text" id="delivery_date" name="delivery_date" value="{{old('delivery_date')}}"
                                        class="input-border form-control kt_datepicker_1 @error('delivery_date') is-invalid @enderror required"
                                        readonly
                                        require
@@ -141,6 +128,9 @@
                             </div>
                         </div>
 
+                        <input type="hidden" id="price" name="price" value=""
+                               class="form-control">
+
                     </div>
                 </div>
             </form>
@@ -157,6 +147,44 @@
         </div>
     </div>
     <!--end::Portlet-->
+
+{{--    Modal confirmar pedido--}}
+
+    <div class="modal fade" id="confirmarPedido" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar pedido</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <span class="col-lg-6"><strong>Descrição do pedido</strong></span>
+                            <span class="col-lg-6" id="descrição_pedido"></span>
+                        </div>
+                        <div class="row mt-3">
+                            <span class="col-lg-6"><strong>Valor do Pedido</strong></span>
+                            <span class="col-lg-6" id="preço_pedido">R$</span>
+                        </div>
+                        <div class="row mt-3">
+                            <span class="col-lg-6"><strong>Quantidade</strong></span>
+                            <span class="col-lg-6" id="amount_pedido"></span>
+                        </div>
+                        <div class="row mt-3">
+                            <span class="col-lg-6"><strong>Data de entrega</strong></span>
+                            <span class="col-lg-6" id="data_entrega"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" onclick="limpaForm()">@lang('system.button.back')</button>
+                        <button class="btn btn-success" type="submit" form="formCadastrarPedido">@lang('system.button.save')</button>
+                    </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -166,6 +194,8 @@
             $('.preço_material').inputmask({mask: ['9,99','99,99','999,99','9.999,99','99.999,99',], keepStatic: true, removeMaskOnSubmit: true});
             KTBootstrapDatepicker.init();
         });
+
+        let materialPrice = null;
 
         let KTBootstrapDatepicker = function () {
             let arrows;
@@ -206,20 +236,39 @@
         $('select#select_material').on('change', function (e) {
             e.preventDefault();
             let selected_material = $(this).children("option:selected").val();
-            let getPrice = "{{route('material.getPrice.ajax', ['material_id' => 'material_id'])}}";
+            let amount = $('#amount').val();
+            let getPrice = "{{route('material.getPrice.ajax', ['material_id' => 'material_id', 'amount' => 'amount'])}}";
             getPrice = getPrice.replace('material_id', selected_material);
+            getPrice = getPrice.replace('amount', amount);
             $.ajax({
                 type:"GET",
                 dataType:"json",
                 url: getPrice,
                 success:function(price){
-                    console.log(price);
-                    $('#price-material').val(price);
+                    materialPrice = price
+                    $('#price').val(price);
                 },
                 error: function (getPrice) {
                     console.log(getPrice);
                 }
             })
         })
+
+        function criaForm() {
+            $('#preço_pedido').append(materialPrice);
+            let amount = $('#amount').val();
+            let delivery_date = $('#delivery_date').val();
+            let description = $('#description').val();
+
+            $('#descrição_pedido').append(description);
+            $('#amount_pedido').append(amount);
+            $('#data_entrega').append(delivery_date);
+        }
+
+        function limpaForm() {
+            $('#preço_pedido').html('');
+            $('#amount_pedido').html('');
+            $('#data_entrega').html('');
+        }
     </script>
 @endsection
