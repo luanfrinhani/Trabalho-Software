@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('material_id')->constrained('materials');
             $table->foreignUuid('pedido_id')->constrained('pedidos');
-            $table->integer('material_amount');
+            $table->bigInteger('material_amount');
             $table->timestamps();
         });
     }
