@@ -29,7 +29,9 @@ Route::group(
         'middleware' => SetLocale::class
     ],
     function () {
-        Route::get('/',[PedidoController::class, 'index'])->name('welcome');
+        Route::get('/', function () {
+            return view('welcome');
+        })->name('welcome');
 
         //Rotas do User
         Route::prefix('system')->group(function () {
@@ -44,7 +46,7 @@ Route::group(
 //            Route::get('/callback', 'Auth\IAMController@callback')->name('callback');
 
             Route::middleware(['auth'])->group(function () {
-                Route::get('/', 'HomeController@index')->name('home');
+                Route::get('/', [PedidoController::class, 'index'])->name('home');
                 Route::resource('/user', 'System\Admin\UserController', ['as' => 'system']);
                 //Rotas de usuarios pelo IAM
 //                Route::resource('/user', 'System\Admin\UserIAMController', ['as' => 'system']);
@@ -65,7 +67,7 @@ Route::group(
 
                 // Rotas do produto
                 Route::resource('material', MaterialController::class);
-                Route::get('material/get-price/{material_id}', [MaterialController::class, 'getPriceAjax'])->name('material.getPrice.ajax');
+                Route::get('material/get-price/{material_id}/{amount}', [MaterialController::class, 'materialPriceAjax'])->name('material.getPrice.ajax');
             });
         });
 
