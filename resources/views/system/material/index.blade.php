@@ -36,10 +36,10 @@
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <span class="kt-portlet__head-icon">
-                    <i class="fa fa-users kt-font-brand"></i>
+                    <i class="fas fa-tree"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    Clientes
+                    Materiais
                     {{--                    <small>try to scroll the page</small>--}}
                 </h3>
             </div>

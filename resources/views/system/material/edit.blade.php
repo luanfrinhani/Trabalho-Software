@@ -109,6 +109,14 @@
 
                 </div>
                 <div class="col-lg-6 kt-align-right">
+                    <form id="formRemoverMaterial" action="{{route('material.destroy', ['material' => $material->id])}}" method="POST" class="kt-form  form-remover">
+                        @csrf
+                        {{ method_field('DELETE') }}
+                        <button type="submit" form="formRemoverMaterial" class="btn btn-danger btn-remover">
+                            <i class="la la-trash"></i>
+                            <span class="kt-hidden-mobile">@lang('system.button.delete')</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
