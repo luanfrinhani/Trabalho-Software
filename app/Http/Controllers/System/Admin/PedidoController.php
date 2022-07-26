@@ -4,8 +4,10 @@ namespace App\Http\Controllers\System\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\System\Material;
+use App\Model\System\Pedido;
 use App\Service\System\MaterialService;
 use App\Service\System\PedidoService;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -105,8 +107,19 @@ class PedidoController extends Controller
             session()->flash('response', $message->getFlash());
             return back()->withErrors($message->getErrors());
         }
+        /** @var Pedido $pedido */
+        $pedido = $message->getData();
+        $pedido->data = Carbon::parse($pedido->delivery_date)->format('d/m/Y');
 
-        return view('system.pedido.edit', ['pedido' => $message->getData()]);
+        $messageMaterial = $this->materialService->all(['id', 'name']);
+        if ($messageMaterial->isError()) {
+            session()->flash('response', $messageMaterial->getFlash());
+            return back()->withErrors($messageMaterial->getErrors());
+        }
+        /** @var Material $material */
+        $material = $messageMaterial->getData();
+
+        return view('system.pedido.edit', ['pedido' => $pedido, 'materiais' => $material]);
     }
 
     /**

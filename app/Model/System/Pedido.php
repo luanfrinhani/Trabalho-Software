@@ -5,6 +5,8 @@ namespace App\Model\System;
 use App\Traits\Core\Uuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 /**
  * @property string id
  * @property string description
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string status
  * @property string user_id
  * @property string label
+ * @property HasOne materialUtilizado
  */
 class Pedido extends Model
 {
@@ -26,8 +29,17 @@ class Pedido extends Model
         'label'
     ];
 
+    protected $with = [
+        'materialUtilizado'
+    ];
+
     public function getLabelAttribute()
     {
         return $this->label = trans('pedido.label.' . $this->status);
+    }
+
+    public function materialUtilizado(): HasOne
+    {
+        return $this->hasOne(MaterialUtilizado::class);
     }
 }
