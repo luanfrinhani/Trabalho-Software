@@ -266,6 +266,7 @@
         }
 
         function limpaForm() {
+            $('#descrição_pedido').html('');
             $('#preço_pedido').html('');
             $('#amount_pedido').html('');
             $('#data_entrega').html('');
