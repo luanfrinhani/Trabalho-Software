@@ -86,7 +86,7 @@
                             <label class="col-3 col-form-label">Quantidade*</label>
                             <div class="col-4">
                                 <input type="number" name="amount" value="{{old('amount')}}"
-                                       class="form-control @error('amount') is-invalid @enderror">
+                                       class="form-control @error('amount') is-invalid @enderror" min="0">
                                 @error('amount')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-3 col-form-label">Preço*</label>
+                            <label class="col-3 col-form-label">Preço R$*</label>
                             <div class="col-4">
                                 <input type="text" name="price" value="{{old('price')}}"
                                        class="form-control preço_material @error('price') is-invalid @enderror">
