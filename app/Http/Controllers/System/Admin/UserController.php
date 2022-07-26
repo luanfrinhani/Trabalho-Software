@@ -66,7 +66,7 @@ class UserController extends Controller
                 ->withErrors($message->getErrors());
         }
 
-        return redirect(route('system.user.edit', ['user' => $message->getData()]));
+        return redirect()->route('system.user.index');
     }
 
     /**
@@ -117,7 +117,7 @@ class UserController extends Controller
                 ->withErrors($message->getErrors());
         }
 
-        return redirect(route('system.user.edit', ['user' => $id]));
+        return redirect()->route('system.user.index');
     }
 
     /**
