@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\System\Admin;
 
+use App\Enum\UserGroupTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Model\System\Material;
 use App\Model\System\Pedido;
@@ -31,10 +32,19 @@ class PedidoController extends Controller
      */
     public function index(): View|RedirectResponse
     {
-        $message = $this->pedidoService->all();
-        if ($message->isError()) {
-            session()->flash('response', $message->getFlash());
-            return back()->withErrors($message->getErrors());
+        if (Auth::user()->group == UserGroupTypeEnum::ADMIN) {
+            $message = $this->pedidoService->all();
+            if ($message->isError()) {
+                session()->flash('response', $message->getFlash());
+                return back()->withErrors($message->getErrors());
+            }
+        }
+        if (Auth::user()->group == UserGroupTypeEnum::CLIENT) {
+            $message = $this->pedidoService->findBy(['user_id' => Auth::user()->id]);
+            if ($message->isError()) {
+                session()->flash('response', $message->getFlash());
+                return back()->withErrors($message->getErrors());
+            }
         }
 
         return view('system.pedido.index', ['pedidos' => $message->getData()]);
