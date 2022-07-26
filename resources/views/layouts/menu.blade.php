@@ -22,6 +22,17 @@
                 <i class="kt-menu__section-icon flaticon-more-v2"></i>
             </li>
 
+            <li id="menu_item_pedido" class="kt-menu__item " aria-haspopup="true">
+                <a href="{{route('pedido.index')}}" class="kt-menu__link ">
+                    <span class="kt-menu__link-icon">
+                       <i class="fas fa-clipboard-list"></i>
+                    </span>
+                    <span class="kt-menu__link-text">
+                        Pedidos
+                    </span>
+                </a>
+            </li>
+
             @can('user-client', \Illuminate\Support\Facades\Auth::user())
                 <li id="menu_item_material" class="kt-menu__item " aria-haspopup="true">
                     <a href="{{route('material.index')}}" class="kt-menu__link ">
@@ -35,16 +46,6 @@
                 </li>
             @endcan
 
-            <li id="menu_item_pedido" class="kt-menu__item " aria-haspopup="true">
-                <a href="{{route('pedido.index')}}" class="kt-menu__link ">
-                    <span class="kt-menu__link-icon">
-                       <i class="fas fa-clipboard-list"></i>
-                    </span>
-                    <span class="kt-menu__link-text">
-                        Pedidos
-                    </span>
-                </a>
-            </li>
             @can('user-client', \Illuminate\Support\Facades\Auth::user())
                 <li id="menu_item_usuario" class="kt-menu__item " aria-haspopup="true">
                     <a href="{{route('system.user.index')}}" class="kt-menu__link ">

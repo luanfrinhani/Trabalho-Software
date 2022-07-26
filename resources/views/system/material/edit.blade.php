@@ -128,7 +128,7 @@
     <script>
         $(document).ready(function(){
             $('#menu_item_hearings').addClass('kt-menu__item--active');
-            $('.preço_material').inputmask({mask: ['9,99','99,99','999,99','9.999,99','99.999,99',], keepStatic: true, removeMaskOnSubmit: true});
+            // $('.preço_material').inputmask({mask: ['9,99','99,99','999,99','9.999,99','99.999,99',], keepStatic: true, removeMaskOnSubmit: false});
         });
 
     </script>
