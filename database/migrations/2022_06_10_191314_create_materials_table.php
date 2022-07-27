@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->integer('amount');
-            $table->float('price');
+            $table->float('price', 16, 2);
             $table->timestamps();
         });
     }

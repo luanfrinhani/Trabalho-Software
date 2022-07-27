@@ -51,7 +51,7 @@
                     <i class="la la-arrow-left"></i>
                     <span class="kt-hidden-mobile">@lang('system.button.back')</span>
                 </a>
-                <button class="btn btn-success" data-toggle="modal" data-target="#confirmarPedido" onclick="criaForm()">
+                <button class="btn btn-success" data-toggle="modal" data-target="#confirmarPedido" onclick="clickModal()">
                     <i class="la la-check"></i>
                     <span class="kt-hidden-mobile">@lang('system.button.save')</span>
                 </button>
@@ -233,9 +233,8 @@
             };
         }();
 
-        $('select#select_material').on('change', function (e) {
-            e.preventDefault();
-            let selected_material = $(this).children("option:selected").val();
+        function getPrice() {
+            let selected_material = $('#select_material').children("option:selected").val();
             let amount = $('#amount').val();
             let getPrice = "{{route('material.getPrice.ajax', ['material_id' => 'material_id', 'amount' => 'amount'])}}";
             getPrice = getPrice.replace('material_id', selected_material);
@@ -245,17 +244,17 @@
                 dataType:"json",
                 url: getPrice,
                 success:function(price){
-                    materialPrice = price
+                    materialPrice = price;
+                    $('#preço_pedido').append(materialPrice);
                     $('#price').val(price);
                 },
                 error: function (getPrice) {
                     console.log(getPrice);
                 }
             })
-        })
+        }
 
         function criaForm() {
-            $('#preço_pedido').append(materialPrice);
             let amount = $('#amount').val();
             let delivery_date = $('#delivery_date').val();
             let description = $('#description').val();
@@ -263,6 +262,11 @@
             $('#descrição_pedido').append(description);
             $('#amount_pedido').append(amount);
             $('#data_entrega').append(delivery_date);
+        }
+
+        function clickModal() {
+            getPrice();
+            criaForm();
         }
 
         function limpaForm() {

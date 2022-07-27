@@ -154,10 +154,16 @@ class PedidoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        //
+        $message = $this->pedidoService->delete($id);
+        session()->flash('response', $message->getFlash());
+        if ($message->isError()) {
+            return back()->withErrors($message->getErrors());
+        }
+
+        return redirect()->route('pedido.index');
     }
 }
