@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string status
  * @property string user_id
  * @property string label
- * @property HasOne materialUtilizado
+ * @property MaterialUtilizado materialUtilizado
  */
 class Pedido extends Model
 {

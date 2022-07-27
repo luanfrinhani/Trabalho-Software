@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('status');
             $table->date('delivery_date');
-            $table->float('price');
+            $table->float('price', 16, 2);
             $table->timestamps();
         });
     }

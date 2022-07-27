@@ -85,6 +85,53 @@ class PedidoService extends Service
         return $this->message->success(trans('system.messages.success'), $material);
     }
 
+    public function update(array $data, $id): Message
+    {
+        $message = parent::find($id);
+        if ($message->isError()) {
+            return $message;
+        }
+        DB::beginTransaction();
+        /** @var Pedido $pedido */
+        $pedido = $message->getData();
+        $messageMaterial = $this->materialService->find($pedido->materialUtilizado->material_id);
+        if ($messageMaterial->isError()) {
+            return $messageMaterial;
+        }
+        /** @var Material $material */
+        $material = $messageMaterial->getData();
+
+        $data['delivery_date'] = Carbon::createFromFormat('d/m/Y', $data['delivery_date']);
+        if ($data['material_amount'] != $pedido->materialUtilizado->material_amount) {
+            $newAmount = $pedido->materialUtilizado->material_amount - $data['material_amount'];
+            $amountMaterial = $material->amount + $newAmount;
+            $newMaterial['amount'] = $amountMaterial;
+            $message = $this->materialService->update($newMaterial, $material->id);
+            if ($message->isError()) {
+                DB::rollBack();
+                return $message;
+            }
+        }
+
+        $messagePedido = parent::update($data, $id);
+        if ($messagePedido->isError()) {
+            DB::rollBack();
+            return $messagePedido;
+        }
+        /** @var Pedido $pedido */
+        $pedido = $messagePedido->getData();
+        $data['material_id'] = $material->id;
+        $message = $this->materialUtilizadoService->update($data, $pedido->materialUtilizado->id);
+        if ($message->isError()) {
+            DB::rollBack();
+            return $message;
+        }
+
+        DB::commit();
+
+        return $messagePedido;
+    }
+
     public function rules($id): array
     {
         return [];

@@ -49,7 +49,7 @@
                 <a href="{{ route('pedido.index') }}" class="btn btn-outline-dark kt-margin-r-10">
                     <span class="kt-hidden-mobile">@lang('system.button.back')</span>
                 </a>
-                <button class="btn btn-success" data-toggle="modal" data-target="#confirmarPedido" onclick="criaForm()">
+                <button class="btn btn-success" data-toggle="modal" data-target="#confirmarPedido" onclick="clickModal()">
                     <i class="la la-check"></i>
                     <span class="kt-hidden-mobile">@lang('system.button.save')</span>
                 </button>
@@ -79,12 +79,12 @@
                     <div class="form-group row">
                         <label class="col-3 col-form-label">Material*</label>
                         <div class="col-4">
-                            <select class="form-control selectpicker" name="material_id" id="select_material"
-                                    title="Selecione uma opção">
-                                <option selected value="{{old($pedido->materialUtilizado->material->id)}}">{{$pedido->materialUtilizado->material->name}}</option>
+                            <select class="form-control selectpicker" name="material_id"
+                                    title="Selecione uma opção" id="select_material">
+                                <option selected value="{{$pedido->materialUtilizado->material->id}}">{{$pedido->materialUtilizado->material->name}}</option>
                                 @foreach($materiais as $material)
                                     @if($material->id != $pedido->materialUtilizado->material->id)
-                                        <option value="{{$material->id}}">{{$material->name}}</option>
+                                        <option id="selected_material" value="{{$material->id}}">{{$material->name}}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -226,10 +226,9 @@
 
         let materialPrice = null;
 
-        $('select#select_material').on('change', function (e) {
-            e.preventDefault();
-            let selected_material = $(this).children("option:selected").val();
-            let amount = $('#amount').val();
+        function getPrice() {
+            let selected_material = $('#select_material').children("option:selected").val();
+            let amount = $('#material_amount').val();
             let getPrice = "{{route('material.getPrice.ajax', ['material_id' => 'material_id', 'amount' => 'amount'])}}";
             getPrice = getPrice.replace('material_id', selected_material);
             getPrice = getPrice.replace('amount', amount);
@@ -238,30 +237,33 @@
                 dataType:"json",
                 url: getPrice,
                 success:function(price){
-                    materialPrice = price
+                    materialPrice = price;
+                    $('#preço_pedido').append(materialPrice);
                     $('#price').val(price);
                 },
                 error: function (getPrice) {
                     console.log(getPrice);
                 }
             })
-        })
+        }
 
         function criaForm() {
-            $('#preço_pedido').append(materialPrice);
             let amount = $('#material_amount').val();
             let delivery_date = $('#delivery_date').val();
             let description = $('#description').val();
-            if (materialPrice === null) {
-                $('#preço_pedido').append($('#price').val());
-            }
 
             $('#descrição_pedido').append(description);
             $('#amount_pedido').append(amount);
             $('#data_entrega').append(delivery_date);
         }
 
+        function clickModal() {
+            getPrice();
+            criaForm();
+        }
+
         function limpaForm() {
+            $('#descrição_pedido').html('');
             $('#preço_pedido').html('');
             $('#amount_pedido').html('');
             $('#data_entrega').html('');
