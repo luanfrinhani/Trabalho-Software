@@ -1,1 +1,0 @@
-import ImageEditor = require('../')
